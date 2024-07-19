@@ -1,4 +1,5 @@
 import useAPI from '../useAPI';
+import { useSelector } from '../../store/hooks/useSelector';
 
 const REACT_QUERY_KEY = "get-all-pokemon";
 
@@ -15,6 +16,9 @@ interface IPokemon {
 }
 
 export default function useGetAllPokemon(): readonly IPokemon[] | undefined {
+    const examplePullFromRedux = useSelector((state) => state.example.token);
+    console.log(`useGetAllPokemon: ${examplePullFromRedux}`);
+    
     const { data: axiosResponse, isError } = useAPI<IGetAllPokemonResponse>(
         REACT_QUERY_KEY,
         'https://pokeapi.co/api/v2/pokemon/'

@@ -5,6 +5,9 @@ import {
     QueryClient,
     QueryClientProvider
 } from '@tanstack/react-query';
+import { store } from './store/store';
+import { Provider } from 'react-redux';
+import FetchByRTKQuery from './rtk-query/FetchByRTKQuery';
 
 const App: React.FC = () => {
     const queryClient = React.useRef(
@@ -19,15 +22,19 @@ const App: React.FC = () => {
         ));
 
     return (
-        <div className="app">
-            <h1>RTK Query vs React Query</h1>
+        <Provider store={store}>
+            <div className="app">
+                <h1>RTK Query vs React Query</h1>
 
-            <div className="content">
-                <QueryClientProvider client={queryClient.current}>
-                    <FetchByReactQuery/>
-                </QueryClientProvider>
+                <div className="content">
+                    <QueryClientProvider client={queryClient.current}>
+                        <FetchByReactQuery/>
+                    </QueryClientProvider>
+                    
+                    <FetchByRTKQuery />
+                </div>
             </div>
-        </div>
+        </Provider>
     );
 }
 
